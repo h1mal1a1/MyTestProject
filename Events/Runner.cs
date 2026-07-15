@@ -48,10 +48,10 @@ public class Runner
     public static void RunTest3()
     {
         Task3.TemperatureSensor sensor = new();
-        
+
         sensor.TemperatureChanged += (_, e) =>
         {
-            if(e.OldTemperature == null)
+            if (e.OldTemperature == null)
                 Console.WriteLine($"Установлена начальная температура {e.NewTemperature}");
             else
                 Console.WriteLine($"Температура изменилась c {e.OldTemperature} на {e.NewTemperature}");
@@ -62,7 +62,15 @@ public class Runner
     }
     public static void RunTest4()
     {
-
+        Task4.Product product = new("Pr1", 1000);
+        Task4 ts4 = new();
+        product.PriceChanged += (_, e) =>
+        {
+            Console.WriteLine($"Для продукта {e.Name} изменилась цена с {e.OldPrice} на {e.NewPrice}. Процент: {e.Percent}%");
+        };
+        product.ChangePrice(2000);
+        product.ChangePrice(2000);
+        product.ChangePrice(100);
     }
     public static void RunTest5()
     {
@@ -93,6 +101,6 @@ public class Runner
 
     public static void RunAllTests()
     {
-        RunTest3();
+        RunTest4();
     }
 }
