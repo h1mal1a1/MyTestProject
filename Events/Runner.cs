@@ -63,7 +63,6 @@ public class Runner
     public static void RunTest4()
     {
         Task4.Product product = new("Pr1", 1000);
-        Task4 ts4 = new();
         product.PriceChanged += (_, e) =>
         {
             Console.WriteLine($"Для продукта {e.Name} изменилась цена с {e.OldPrice} на {e.NewPrice}. Процент: {e.Percent}%");
@@ -74,7 +73,26 @@ public class Runner
     }
     public static void RunTest5()
     {
+        Task5.Order order = new(5, "FirstOrder");
+        order.StatusChanged += (_, e) =>
+        {
+            Console.WriteLine($"У заказа {e.Name} c Id={e.Id} изменился статус на {e.NewStatus}");
+        };
 
+        Task5.SmsNotification smsNotification = new();
+        order.StatusChanged += smsNotification.HandleStatusChanged;
+
+        Task5.EmailNotification emailNotification = new();
+        order.StatusChanged += emailNotification.HandleStatusChanged;
+
+
+        Task5.Logger logger = new();
+        order.StatusChanged += logger.HandleStatusChanged;
+
+        Task5.Analytics analytics = new();
+        order.StatusChanged += analytics.HandleStatusChanged;
+
+        order.ChangeStatus(Task5.OrderStatus.Paid);
     }
     public static void RunTest6()
     {
@@ -101,6 +119,6 @@ public class Runner
 
     public static void RunAllTests()
     {
-        RunTest4();
+        RunTest5();
     }
 }
