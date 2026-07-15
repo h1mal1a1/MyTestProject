@@ -48,12 +48,18 @@ public class Runner
     public static void RunTest3()
     {
         Task3.TemperatureSensor sensor = new();
-
-
+        
+        sensor.TemperatureChanged += (_, e) =>
+        {
+            if(e.OldTemperature == null)
+                Console.WriteLine($"Установлена начальная температура {e.NewTemperature}");
+            else
+                Console.WriteLine($"Температура изменилась c {e.OldTemperature} на {e.NewTemperature}");
+        };
+        sensor.SetTemperature(10);
+        sensor.SetTemperature(10);
+        sensor.SetTemperature(20);
     }
-
-
-
     public static void RunTest4()
     {
 
@@ -87,6 +93,6 @@ public class Runner
 
     public static void RunAllTests()
     {
-        RunTest2();
+        RunTest3();
     }
 }
