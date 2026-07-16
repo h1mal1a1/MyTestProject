@@ -20,7 +20,6 @@ public class Runner
 
         task.SetTemperature(32);
     }
-
     public static void RunTest2()
     {
         Task2.TemperatureSensor task = new();
@@ -96,11 +95,25 @@ public class Runner
     }
     public static void RunTest6()
     {
-
+        Task6.NotificationPublisher publisher = new();
+        Task6.NotificationSubscriber subscriber = new();
+        publisher.Notification += subscriber.HandleNotification;
+        publisher.SendNotification();
+        publisher.Notification -= subscriber.HandleNotification;
+        publisher.SendNotification();
     }
     public static void RunTest7()
     {
+        Task7.Publisher publisher = new();
 
+        using (var subscriber = new Task7.Subscriber(publisher))
+        {
+            Console.WriteLine("First calling");
+            publisher.SendNotification();
+        }
+
+        Console.WriteLine("Second calling");
+        publisher.SendNotification();
     }
     public static void RunTest8()
     {
@@ -119,6 +132,6 @@ public class Runner
 
     public static void RunAllTests()
     {
-        RunTest5();
+        RunTest7();
     }
 }
