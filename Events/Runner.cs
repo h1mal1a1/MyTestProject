@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace MyTestProject.Events;
 
 public class Runner
@@ -135,11 +137,29 @@ public class Runner
     }
     public static void RunTest8()
     {
+        File.Create(Path.Combine(AppContext.BaseDirectory, "test.txt"));
+
+        Task8.NotificationPublisher publisher = new();
+        Task8.FileNotification fileNotifiocation = new(Path.Combine(AppContext.BaseDirectory, "test.txt"));
+        Task8.ConsoleNotification consoleNotifion = new();
+        publisher.Notification += fileNotifiocation.HandleNotification;
+        publisher.Notification += consoleNotifion.HandleNotification;
+        publisher.SendNotification();
 
     }
-    public static void RunTest9()
+    public static async Task RunTest9()
     {
+        Task9.EmailNotification emailNotification = new();
+        Task9.AnalyticsNotification analyticsNotification = new();
+        Task9.LoggerNotification loggerNotification = new();
+        Task9.OrderService orderService = new();
+        orderService.OrderCreated += emailNotification.SendEmail;
+        orderService.OrderCreated += analyticsNotification.SendAnalytic;
+        orderService.OrderCreated += loggerNotification.SendLogger;
 
+        Task9.OrderCreatedEventArgs args = new(111, "FirstOrder");
+        await orderService.NotifyParallelAsync(args);
+        await orderService.NotifySequentialAsync(args);
     }
     public static void RunTest10()
     {
@@ -148,8 +168,8 @@ public class Runner
 
     }
 
-    public static void RunAllTests()
+    public async static Task RunAllTests()
     {
-        RunTest7();
+        await RunTest9();
     }
 }

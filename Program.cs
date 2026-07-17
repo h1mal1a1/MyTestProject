@@ -9,9 +9,10 @@ namespace MyTestProject
     {
 
 
-        public static int Main()
+        public async static Task<int> Main()
         {
-            Events.Runner.RunAllTests();//тесты на делегаты
+            await Events.Runner.RunAllTests();
+            return 1;//тесты на делегаты
 
             return 1;
             // Creational.RunAllTests();//отвечают за создание объектов
