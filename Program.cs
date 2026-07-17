@@ -1,7 +1,7 @@
 ﻿using MyTestProject.Patterns.CreationalPatterns;
 using MyTestProject.Patterns.StructuralPatterns;
 using MyTestProject.Patterns.BehavioralPatterns;
-
+using MyTestProject.Algorithms.T02Sorting;
 
 namespace MyTestProject
 {
@@ -11,7 +11,11 @@ namespace MyTestProject
 
         public static int Main()
         {
-            Events.Runner.RunAllTests();//тесты на делегаты
+            int[] numbers = [5, 3, 4, 1];
+            Console.WriteLine(string.Join(',', numbers.Select(x => Convert.ToString(x))));
+            numbers = BubbleSort.OptimizedSort(numbers);
+            Console.WriteLine(string.Join(',', numbers.Select(x => Convert.ToString(x))));
+            //Events.Runner.RunAllTests();//тесты на делегаты
 
             return 1;
             // Creational.RunAllTests();//отвечают за создание объектов
