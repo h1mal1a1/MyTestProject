@@ -7,20 +7,22 @@ namespace MyTestProject
 {
     public class Program
     {
-
-
-        public static int Main()
+        public static async Task<int> Main()
         {
             int[] numbers = [5, 3, 4, 1];
-            Console.WriteLine(string.Join(',', numbers.Select(x => Convert.ToString(x))));
-            numbers = BubbleSort.OptimizedSort(numbers);
-            Console.WriteLine(string.Join(',', numbers.Select(x => Convert.ToString(x))));
-            //Events.Runner.RunAllTests();//тесты на делегаты
 
-            return 1;
-            // Creational.RunAllTests();//отвечают за создание объектов
-            Structural.RunAllTests();//отвечают за структуру объектов
-            Behavioral.RunAllTests();//отвечают за поведение объектов(как взаимодействуют объекты между собой)
+            Console.WriteLine(string.Join(", ", numbers));
+
+            numbers = BubbleSort.OptimizedSort(numbers);
+
+            Console.WriteLine(string.Join(", ", numbers));
+
+            await Events.Runner.RunAllTests();
+
+            // Creational.RunAllTests(); // отвечают за создание объектов
+            Structural.RunAllTests();    // отвечают за структуру объектов
+            Behavioral.RunAllTests();    // отвечают за поведение объектов
+
             return 0;
         }
     }
