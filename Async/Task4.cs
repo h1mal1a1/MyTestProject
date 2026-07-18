@@ -37,7 +37,7 @@ public class Task4
         {
             Console.WriteLine($"Во время выполнения задач произошла ошибка: {ex.Message}");
         }
-        // var res = tasks.Where(x => x.Status == TaskStatus.RanToCompletion).Select(x => x.Result);
+
         foreach (var task in tasks)
         {
             string msg = $"Status: {task.Status}. ";
