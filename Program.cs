@@ -7,13 +7,13 @@ namespace MyTestProject
 {
     public class Program
     {
-        public void RunAlgorithms()
+        public static void RunAlgorithms()
         {
             int[] numbers = [5, 3, 4, 1];
 
             Console.WriteLine(string.Join(", ", numbers));
 
-            numbers = BubbleSort.OptimizedSort(numbers);
+            numbers = SelectionSort.Sort(numbers);
 
             Console.WriteLine(string.Join(", ", numbers));
         }
@@ -35,9 +35,9 @@ namespace MyTestProject
             Async.Runner runner = new();
             await runner.RunTasks();
         }
-        public static async Task<int> Main()
+        public static int Main()
         {
-            await RunAsync();
+            RunAlgorithms();
             return 0;
         }
     }
